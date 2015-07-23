@@ -1,7 +1,24 @@
 import unittest
 
+def quicksort(A):
+    print("called quicksort with " + str(A))
+    if len(A) <= 1:
+        return
+    pivot_index = get_pivot_index()
+    partition(A, pivot_index)
+
+    #here's the error: where does the pivot_index_value end up?
+    quicksort(A[:pivot_index])
+    quicksort(A[pivot_index+1:])
+
+
+def get_pivot_index():
+    return 0
+
 
 def partition(A, index):
+    if len(A) <= 1:
+        return
     pivot = A[index]
     i = index + 1
     for j in range(i, len(A)):
@@ -30,4 +47,7 @@ class Tests(unittest.TestCase):
         self.assertSequenceEqual([1, 2, 3, 5, 8, 4, 7, 6], A)
 
 if __name__ == '__main__':
-    unittest.main()
+    #unittest.main()
+    A = [3, 8, 2, 5, 1, 4, 7, 6]
+    quicksort(A)
+    print(A)
