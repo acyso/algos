@@ -38,6 +38,12 @@ class Tests(unittest.TestCase):
         partition_left(A, 0, 8)
         self.assertSequenceEqual([1, 2, 3, 5, 8, 4, 7, 6], A)
 
+    def test_median(self):
+        A = [4, 5, 6, 7]
+        self.assertEqual((1, 5), get_median(A))
+        B = [8, 2, 4, 5, 7, 1]
+        self.assertEqual((2, 4), get_median(B))
+
     def test_left_10(self):
         A = load10()
         q = quicksort(A, 0, 10, 'left')
