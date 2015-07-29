@@ -43,7 +43,7 @@ if __name__ == "__main__":
     A = [5, 1, 2, 3, 0 ,4]
     print(count(A))
 
-    f = open('IntegerArray.txt')
+    f = open('data\IntegerArray.txt')
     B = []
     for i in f:
         B.append(int(i))

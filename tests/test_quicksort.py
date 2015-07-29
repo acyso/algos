@@ -40,9 +40,11 @@ class Tests(unittest.TestCase):
 
     def test_median(self):
         A = [4, 5, 6, 7]
-        self.assertEqual((1, 5), get_median(A))
+        self.assertEqual((1, 5), get_median(A, 0, 4))
         B = [8, 2, 4, 5, 7, 1]
-        self.assertEqual((2, 4), get_median(B))
+        self.assertEqual((2, 4), get_median(B, 0, 6))
+        C = [1, 2, 3, 4, 6, 10, 9, 5, 7, 8]
+        self.assertEqual((9, 8), get_median(C, 3, 10))
 
     def test_left_10(self):
         A = load10()
@@ -54,6 +56,12 @@ class Tests(unittest.TestCase):
         A = load10()
         q = quicksort(A, 0, 10, 'right')
         self.assertEqual(29, q)
+        self.assertSequenceEqual(range(1, 11), A)
+
+    def test_median_10(self):
+        A = load10()
+        q = quicksort(A, 0, 10, 'median')
+        self.assertEqual(21, q)
         self.assertSequenceEqual(range(1, 11), A)
 
     def test_left_100(self):
@@ -68,6 +76,12 @@ class Tests(unittest.TestCase):
         self.assertEqual(587, q)
         self.assertSequenceEqual(range(1, 101), A)
 
+    def test_median_100(self):
+        A = load100()
+        q = quicksort(A, 0, 100, 'median')
+        self.assertEqual(518, q)
+        self.assertSequenceEqual(range(1, 101), A)
+
     def test_left_1000(self):
         A = load1000()
         q = quicksort(A, 0, 1000, 'left')
@@ -79,11 +93,12 @@ class Tests(unittest.TestCase):
         q = quicksort(A, 0, 1000, 'right')
         self.assertEqual(10184, q)
         self.assertSequenceEqual(range(1, 1001), A)
-#Answers are:
-#size   first      last      median
-#10     25        29        21
-#100   615      587      518
-#1000 10297 10184  8921
+
+    def test_median_1000(self):
+        A = load1000()
+        q = quicksort(A, 0, 1000, 'median')
+        self.assertEqual(8921, q)
+        self.assertSequenceEqual(range(1, 1001), A)
 
 
 if __name__ == '__main__':
