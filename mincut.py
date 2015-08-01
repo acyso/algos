@@ -1,6 +1,24 @@
+from random import randint
 
 
+def mincut(mylist):
+    pass
 
+
+def fuse(mylist, edge):
+    pass
+
+
+def select_random(mylist):
+    ordered_pairs = []
+    for i in range(len(mylist)):
+        for j in mylist[i]:
+            ordered_pairs.append((i, j))
+
+    rand_index = randint(0, len(ordered_pairs) -1)
+
+    return ordered_pairs[rand_index
+]
 
 def get_number_of_edges(mylist):
     a = 0
