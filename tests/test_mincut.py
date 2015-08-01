@@ -13,9 +13,15 @@ class Tests(unittest.TestCase):
         A = {1: [1, 2], 2: [1, 3, 4], 3: [1]}
         out = get_edges(A)
         self.assertEqual(6, len(out))
-        self.assertTrue((1,1) in out)
-        self.assertTrue((1,2) in out)
-        self.assertTrue((2,1) in out)
-        self.assertTrue((2,3) in out)
-        self.assertTrue((2,4) in out)
-        self.assertTrue((3,1) in out)
+        self.assertTrue((1, 1) in out)
+        self.assertTrue((1, 2) in out)
+        self.assertTrue((2, 1) in out)
+        self.assertTrue((2, 3) in out)
+        self.assertTrue((2, 4) in out)
+        self.assertTrue((3, 1) in out)
+
+    def test_fuse(self):
+        A = {1: [2, 3], 2: [1, 3, 4], 3: [1, 2, 4], 4: [2,3]}
+        fuse(A, (1, 3))
+        print(A)
+        self.assertTrue(True)

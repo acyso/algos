@@ -5,20 +5,25 @@ def mincut(mylist):
     pass
 
 
-def fuse(mylist, edge):
+def fuse(d, edge):
     persisting_node = edge[0]
     disappearing_node = edge[1]
-    mylist[persisting_node] += mylist[disappearing_node]
-    mylist[disappearing_node] = []
+    source_edges = d[persisting_node]
+    dest_edges = d[disappearing_node]
 
-    new_connections = []
-    for i in mylist[persisting_node]:
-        if i != persisting_node:
-            new_connections.append(i)
+    source_edges.remove(disappearing_node)
+    dest_edges.remove(persisting_node)
 
-    mylist[persisting_node] = new_connections
+    temp_persisting_edges = source_edges + dest_edges
+    temp_persisting_edges = [x for x in temp_persisting_edges if x != persisting_node]
 
-    print(mylist)
+    for k in d:
+        for i, v in enumerate(d[k]):
+            if v == disappearing_node:
+                d[k][i] = persisting_node
+
+    d[persisting_node] = temp_persisting_edges
+    d.pop(disappearing_node, None)
 
 
 def get_edges(d):
