@@ -30,7 +30,7 @@ def get_edges(d):
 
     
 def select_random_edge(edges):
-    rand_index = randint(0, len(edges) - 1
+    rand_index = randint(0, len(edges) - 1)
     return edges[rand_index]
 
 
