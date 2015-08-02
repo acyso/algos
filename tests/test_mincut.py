@@ -21,7 +21,10 @@ class Tests(unittest.TestCase):
         self.assertTrue((3, 1) in out)
 
     def test_fuse(self):
-        A = {1: [2, 3], 2: [1, 3, 4], 3: [1, 2, 4], 4: [2,3]}
+        A = {1: [2, 3], 2: [1, 3, 4], 3: [1, 2, 4], 4: [2, 3]}
         fuse(A, (1, 3))
-        print(A)
-        self.assertTrue(True)
+        self.assertSequenceEqual([2, 2, 4], A[1])
+        self.assertSequenceEqual([1, 1, 4], A[2])
+        self.assertSequenceEqual([2, 1], A[4])
+        self.assertEqual(3, len(A))
+        self.assertFalse(3 in A)

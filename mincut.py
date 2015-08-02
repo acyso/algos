@@ -1,22 +1,32 @@
 from random import randint
+import sys
+import copy
 
 
-def mincut(mylist):
-    pass
+def mincut(d):
+    while True:
+        if len(d) == 2:
+            for k in d:
+                return len(d[k])
+
+        edges = get_edges(d)
+        edge_to_fuse = select_random_edge(edges)
+        fuse(d, edge_to_fuse)
 
 
 def fuse(d, edge):
+    # print("fusing " + str(d) + " " + str(edge))
     persisting_node = edge[0]
     disappearing_node = edge[1]
     source_edges = d[persisting_node]
     dest_edges = d[disappearing_node]
 
-    source_edges.remove(disappearing_node)
-    dest_edges.remove(persisting_node)
+    source_edges = [x for x in source_edges if x != disappearing_node]
+    dest_edges = [x for x in dest_edges if x != persisting_node]
 
     temp_persisting_edges = source_edges + dest_edges
-    temp_persisting_edges = [x for x in temp_persisting_edges if x != persisting_node]
 
+    # remap edges
     for k in d:
         for i, v in enumerate(d[k]):
             if v == disappearing_node:
@@ -24,7 +34,7 @@ def fuse(d, edge):
 
     d[persisting_node] = temp_persisting_edges
     d.pop(disappearing_node, None)
-
+    # print("result " + str(d))
 
 def get_edges(d):
     ordered_pairs = []
@@ -47,11 +57,22 @@ def get_number_of_edges(d):
 
 
 if __name__ == "__main__":
+    corrvalue = sys.maxsize
+
     f = open('data\KargerMinCut.txt')
+    #f = open('tests\data\mincut_test1.txt')
     B = {}
     for line in f:
         split = line.split()
-        B[int(split[0])] = [int(x) for x in split[1:-1]]
+        B[int(split[0])] = [int(x) for x in split[1:]]
+    f.close()
+    print(B)
 
-    for k in range(1, len(B) + 1):
-        print(str(k) + " " + str(B[k]))
+    for i in range(200000):
+        if i % 10 == 0:
+            print('i = {}, best = {}'.format(i, corrvalue))
+        C = copy.deepcopy(B)
+        q = mincut(C)
+        if q < corrvalue:
+            corrvalue = q
+    print(corrvalue)
