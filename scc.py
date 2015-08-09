@@ -1,3 +1,6 @@
+import sys
+import resource
+
 class Tracker():
     def __init__(self):
         self.current_source = None
@@ -31,8 +34,10 @@ def dfs(G, i, tracker):
 
 
 if __name__ == "__main__":
-    #datafile = open('data\SCC.txt')
-    datafile = open('tests\data\scc_test1.txt')
+    sys.setrecursionlimit(1000000)
+
+    datafile = open('data\SCC.txt')
+    #datafile = open('tests\data\scc_test1.txt')
     N = 0
     G = {}
     Grev = {}
@@ -57,3 +62,16 @@ if __name__ == "__main__":
     tracker.reset()
     dfs_loop(G, sorted_nodes, tracker)
     print(tracker.leaders)
+
+    output = {}
+    for k in tracker.leaders:
+        v = tracker.leaders[k]
+        if v in output:
+            output[v] += 1
+        else:
+            output[v] = 1
+
+    print(output)
+    sorted_output = sorted(output, key=output.get, reverse=True)
+
+    print(sorted_output)
