@@ -36,8 +36,9 @@ def dfs(G, i, tracker):
 if __name__ == "__main__":
     sys.setrecursionlimit(1000000)
 
-    datafile = open('data\SCC.txt')
-    #datafile = open('tests\data\scc_test1.txt')
+    datafile = open('data/SCC.txt')
+    #datafile = open('tests/data/scc_test2.txt')
+    #datafile = open('data\SCC.txt')
     N = 0
     G = {}
     Grev = {}
@@ -56,12 +57,10 @@ if __name__ == "__main__":
 
     tracker = Tracker()
     dfs_loop(Grev, range(N-1, -1, -1), tracker)
-    print(tracker.finish_time)
     sorted_nodes = sorted(tracker.finish_time, key=tracker.finish_time.get, reverse=True)
 
     tracker.reset()
     dfs_loop(G, sorted_nodes, tracker)
-    print(tracker.leaders)
 
     output = {}
     for k in tracker.leaders:
@@ -71,7 +70,10 @@ if __name__ == "__main__":
         else:
             output[v] = 1
 
-    print(output)
-    sorted_output = sorted(output, key=output.get, reverse=True)
+    sorted_output = []
+    for i in output:
+        sorted_output.append(output[i])
+   
+    final = sorted(sorted_output, reverse=True)
+    print(final[:min(len(final), 5)]) 
 
-    print(sorted_output)
